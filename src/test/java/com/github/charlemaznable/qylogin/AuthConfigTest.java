@@ -24,6 +24,6 @@ public class AuthConfigTest {
         assertEquals("cookie-name", authConfig.getCookieName());
         assertEquals("redirect-uri", authConfig.getRedirectUri());
         assertEquals("local-url", authConfig.getLocalUrl());
-        assertTrue(authConfig.getForceLogin());
+        assertTrue(authConfig.isForceLogin());
     }
 }

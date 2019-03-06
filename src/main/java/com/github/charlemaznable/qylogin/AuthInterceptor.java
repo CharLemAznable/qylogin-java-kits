@@ -31,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (null == authConfig) return false;
-        if (!authConfig.getForceLogin()) return true;
+        if (!authConfig.isForceLogin()) return true;
 
         val cookieName = authConfig.getCookieName();
         val encryptKey = authConfig.getEncryptKey();

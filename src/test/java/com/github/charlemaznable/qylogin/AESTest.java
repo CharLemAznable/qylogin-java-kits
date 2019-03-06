@@ -10,6 +10,7 @@ public class AESTest {
 
     @Test
     public void testAES() {
+        new AES();
         val plainText = "abc中国汉字1234567#$%^&*(";
 
         var keyString = "A916EFFC3121F935";
@@ -18,6 +19,11 @@ public class AESTest {
         assertEquals(plainText, decrypt);
 
         keyString = "A916EFFC3121F93";
+        encrypt = AES.encryptBase64(plainText, keyString);
+        decrypt = AES.decryptBase64(encrypt, keyString);
+        assertEquals(plainText, decrypt);
+
+        keyString = "A916EFFC3121F9353";
         encrypt = AES.encryptBase64(plainText, keyString);
         decrypt = AES.decryptBase64(encrypt, keyString);
         assertEquals(plainText, decrypt);

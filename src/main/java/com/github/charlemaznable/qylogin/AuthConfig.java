@@ -10,5 +10,7 @@ public interface AuthConfig {
 
     String getLocalUrl();
 
-    boolean getForceLogin();
+    default boolean isForceLogin() {
+        return true;
+    }
 }

@@ -24,9 +24,4 @@ public class TestAuthConfig implements AuthConfig {
     public String getLocalUrl() {
         return "local-url";
     }
-
-    @Override
-    public boolean getForceLogin() {
-        return true;
-    }
 }

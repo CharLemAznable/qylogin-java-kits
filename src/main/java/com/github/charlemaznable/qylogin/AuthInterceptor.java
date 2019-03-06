@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.github.charlemaznable.codec.Json.unJson;
 import static com.github.charlemaznable.lang.Condition.nullThen;
+import static com.github.charlemaznable.lang.Str.isEmpty;
 import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 
 @Slf4j
@@ -43,6 +44,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (cookie.getName().equals(cookieName)) {
                 val decrypted = decryptBase64(cookie.getValue(), encryptKey);
                 val cookieValue = unJson(decrypted, CookieValue.class);
+                if (isEmpty(cookieValue.getName())) break;
                 if (cookieValue.getExpired().isAfter(DateTime.now())) return true;
             }
         }

@@ -1,6 +1,7 @@
 package com.github.charlemaznable.qylogin;
 
 import com.github.charlemaznable.net.Url;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import lombok.var;
@@ -18,13 +19,14 @@ import static com.github.charlemaznable.lang.Condition.nullThen;
 import static com.github.charlemaznable.lang.Str.isEmpty;
 import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 
+@NoArgsConstructor
 @Slf4j
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
     private AuthConfig authConfig;
 
-    @Autowired
+    @Autowired(required = false)
     public AuthInterceptor(AuthConfig authConfig) {
         this.authConfig = authConfig;
     }

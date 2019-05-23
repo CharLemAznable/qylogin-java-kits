@@ -1,6 +1,8 @@
-package com.github.charlemaznable.qylogin;
+package com.github.charlemaznable.qylogin.interceptor;
 
 import com.github.charlemaznable.net.Url;
+import com.github.charlemaznable.qylogin.CookieValue;
+import com.github.charlemaznable.qylogin.config.AuthConfig;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -34,12 +36,15 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (null == authConfig) return false;
-        if (!authConfig.isForceLogin()) return true;
+        if (!authConfig.forceLogin()) return true;
 
-        val cookieName = authConfig.getCookieName();
-        val encryptKey = authConfig.getEncryptKey();
-        val redirectUri = authConfig.getRedirectUri();
-        val localUrl = authConfig.getLocalUrl();
+        val cookieName = authConfig.cookieName();
+        val encryptKey = authConfig.encryptKey();
+        val redirectUri = authConfig.redirectUri();
+        val localUrl = authConfig.localUrl();
+
+        if (null == cookieName || null == encryptKey ||
+                null == redirectUri || null == localUrl) return false;
 
         val cookies = nullThen(request.getCookies(), () -> new Cookie[]{});
         for (val cookie : cookies) {

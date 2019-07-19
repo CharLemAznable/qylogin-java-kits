@@ -13,6 +13,6 @@ Java Kits for [go-qylogin](https://github.com/bingoohuang/go-qylogin).
 <dependency>
   <groupId>com.github.charlemaznable</groupId>
   <artifactId>qylogin-java-kits</artifactId>
-  <version>0.2.6</version>
+  <version>0.2.7</version>
 </dependency>
 ```

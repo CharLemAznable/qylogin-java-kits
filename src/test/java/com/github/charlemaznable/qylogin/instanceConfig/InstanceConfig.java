@@ -1,10 +1,10 @@
 package com.github.charlemaznable.qylogin.instanceConfig;
 
-import com.github.charlemaznable.qylogin.config.AuthConfig;
+import com.github.charlemaznable.qylogin.config.QyLoginConfig;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestInstanceConfig implements AuthConfig {
+public class InstanceConfig implements QyLoginConfig {
 
     @Override
     public String encryptKey() {

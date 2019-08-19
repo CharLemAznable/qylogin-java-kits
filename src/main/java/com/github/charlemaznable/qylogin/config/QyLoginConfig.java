@@ -2,8 +2,8 @@ package com.github.charlemaznable.qylogin.config;
 
 import com.github.charlemaznable.miner.MinerConfig;
 
-@MinerConfig(group = "QY_AUTH", dataId = "default")
-public interface AuthConfig {
+@MinerConfig(group = "QY_LOGIN", dataId = "default")
+public interface QyLoginConfig {
 
     String encryptKey();
 

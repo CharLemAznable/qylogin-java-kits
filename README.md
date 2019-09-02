@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/CharLemAznable/qylogin-java-kits/branch/master/graph/badge.svg)](https://codecov.io/gh/CharLemAznable/qylogin-java-kits)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.charlemaznable/qylogin-java-kits/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.charlemaznable/qylogin-java-kits/)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+![GitHub code size](https://img.shields.io/github/languages/code-size/CharLemAznable/qylogin-java-kits)
 
 Java Kits for [go-qylogin](https://github.com/bingoohuang/go-qylogin).
 
@@ -13,6 +14,6 @@ Java Kits for [go-qylogin](https://github.com/bingoohuang/go-qylogin).
 <dependency>
   <groupId>com.github.charlemaznable</groupId>
   <artifactId>qylogin-java-kits</artifactId>
-  <version>0.3.0</version>
+  <version>0.3.1</version>
 </dependency>
 ```

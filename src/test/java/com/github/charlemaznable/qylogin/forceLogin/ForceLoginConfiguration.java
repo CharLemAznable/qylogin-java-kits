@@ -19,11 +19,11 @@ public class ForceLoginConfiguration {
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
         MockDiamondServer.setConfigInfo("QY_LOGIN", "forceLogin",
-                "encryptKey=A916EFFC3121F935\n" +
-                        "cookieName=cookie-name\n" +
-                        "redirectUri=redirect-uri\n" +
-                        "localUrl=local-url\n" +
-                        "forceLogin=false");
+                "EncryptKey=A916EFFC3121F935\n" +
+                        "CookieName=cookie-name\n" +
+                        "RedirectURI=redirect-uri\n" +
+                        "LocalURL=local-url\n" +
+                        "ForceLogin=false");
     }
 
     @PreDestroy

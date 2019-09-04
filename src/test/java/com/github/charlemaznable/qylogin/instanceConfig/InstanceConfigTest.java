@@ -44,11 +44,10 @@ public class InstanceConfigTest {
     @Test
     public void testInstanceConfig() {
         val cookieValue = new CookieValue();
-        cookieValue.setUserId("a");
+        cookieValue.setUserID("a");
         cookieValue.setName("b");
         cookieValue.setAvatar("c");
         cookieValue.setCsrfToken("d");
-        cookieValue.setRedirect("e");
         cookieValue.setExpired(DateTime.now().plusSeconds(3));
         val jsonString = json(cookieValue);
         val mockCookie = new MockCookie("cookie-name", AES.encryptBase64(jsonString, "A916EFFC3121F935"));
@@ -64,6 +63,6 @@ public class InstanceConfigTest {
                 .cookie(mockCookie))
                 .andExpect(status().isFound())
                 .andReturn().getResponse();
-        assertEquals("redirect-uri?cookie=cookie-name&redirect=local-url%2Finstance%2Findex", response2.getRedirectedUrl());
+        assertEquals("redirect-uri?v=verbose&cookie=cookie-name&redirect=local-url%2Finstance%2Findex", response2.getRedirectedUrl());
     }
 }

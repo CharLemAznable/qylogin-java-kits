@@ -44,11 +44,10 @@ public class ForceLoginConfigTest {
     @Test
     public void testForceLoginIndex() {
         val cookieValue = new CookieValue();
-        cookieValue.setUserId("a");
+        cookieValue.setUserID("a");
         cookieValue.setName("b");
         cookieValue.setAvatar("c");
         cookieValue.setCsrfToken("d");
-        cookieValue.setRedirect("e");
         cookieValue.setExpired(DateTime.now().plusSeconds(3));
         val jsonString = json(cookieValue);
         val mockCookie = new MockCookie("cookie-name", AES.encryptBase64(jsonString, "A916EFFC3121F935"));
@@ -67,6 +66,7 @@ public class ForceLoginConfigTest {
         assertEquals("redirect-uri?cookie=cookie-name&redirect=local-url%2FforceLogin%2Findex", response2.getRedirectedUrl());
     }
 
+    @SuppressWarnings("Duplicates")
     @SneakyThrows
     @Test
     public void testForceLoginExclude() {

@@ -44,17 +44,25 @@ public class DefaultConfigTest {
     @Test
     public void testDefaultConfig() {
         val cookieValue = new CookieValue();
-        cookieValue.setUserId("a");
+        cookieValue.setUserID("a");
         cookieValue.setName("b");
         cookieValue.setAvatar("c");
         cookieValue.setCsrfToken("d");
-        cookieValue.setRedirect("e");
         cookieValue.setExpired(DateTime.now().plusSeconds(3));
         val jsonString = json(cookieValue);
         val mockCookie = new MockCookie("cookie-name", AES.encryptBase64(jsonString, "A916EFFC3121F935"));
 
+        val verboseCookieValue = new CookieValue();
+        verboseCookieValue.setUserID("a");
+        verboseCookieValue.setName("b");
+        verboseCookieValue.setAvatar("c");
+        verboseCookieValue.setCsrfToken("d");
+        verboseCookieValue.setExpired(DateTime.now());
+        val verboseJsonString = json(verboseCookieValue);
+        val verboseMockCookie = new MockCookie("verbose-cookie-name", AES.encryptBase64(verboseJsonString, "A916EFFC3121F935"));
+
         val response = mockMvc.perform(get("/default/index")
-                .cookie(mockCookie))
+                .cookie(verboseMockCookie, mockCookie))
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
         assertNull(response.getRedirectedUrl());

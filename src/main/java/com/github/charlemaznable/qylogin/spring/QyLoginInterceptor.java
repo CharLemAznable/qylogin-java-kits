@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import lombok.var;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -25,6 +24,7 @@ import java.util.Optional;
 
 import static com.github.charlemaznable.codec.Json.unJson;
 import static com.github.charlemaznable.lang.Condition.nullThen;
+import static com.github.charlemaznable.lang.Str.isBlank;
 import static com.github.charlemaznable.lang.Str.isEmpty;
 import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
@@ -59,27 +59,28 @@ public class QyLoginInterceptor implements HandlerInterceptor {
         if (qyLogin.isPresent() && !qyLogin.get().required()) return true;
         if (!qyLogin.isPresent() && !qyLoginConfig.forceLogin()) return true;
 
-        val cookieName = qyLoginConfig.cookieName();
         val encryptKey = qyLoginConfig.encryptKey();
-        val redirectUri = qyLoginConfig.redirectUri();
-        val localUrl = qyLoginConfig.localUrl();
+        val cookieName = qyLoginConfig.cookieName();
+        val redirectURI = qyLoginConfig.redirectURI();
+        val localURL = qyLoginConfig.localURL();
 
-        if (null == cookieName || null == encryptKey ||
-                null == redirectUri || null == localUrl) return false;
+        if (isBlank(encryptKey) || isBlank(cookieName) ||
+                isBlank(redirectURI) || isBlank(localURL)) return false;
 
         val cookies = nullThen(request.getCookies(), () -> new Cookie[]{});
         for (val cookie : cookies) {
             if (cookie.getName().equals(cookieName)) {
                 val decrypted = decryptBase64(cookie.getValue(), encryptKey);
                 val cookieValue = unJson(decrypted, CookieValue.class);
+                if (cookieValue.getExpired().isBeforeNow()) break;
                 if (isEmpty(cookieValue.getName())) break;
-                if (cookieValue.getExpired().isAfter(DateTime.now())) return true;
+                return true;
             }
         }
 
-        var location = redirectUri + (redirectUri.contains("?") ? "&" : "?");
+        var location = redirectURI + (redirectURI.contains("?") ? "&" : "?");
         location += "cookie=" + cookieName + "&";
-        location += "redirect=" + Url.encode(localUrl + request.getRequestURI());
+        location += "redirect=" + Url.encode(localURL + request.getRequestURI());
         response.sendRedirect(location);
         return false;
     }

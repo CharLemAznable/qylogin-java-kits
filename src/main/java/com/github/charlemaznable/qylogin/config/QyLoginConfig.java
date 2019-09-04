@@ -5,14 +5,18 @@ import com.github.charlemaznable.miner.MinerConfig;
 @MinerConfig(group = "QY_LOGIN", dataId = "default")
 public interface QyLoginConfig {
 
+    @MinerConfig(dataId = "EncryptKey")
     String encryptKey();
 
+    @MinerConfig(dataId = "CookieName")
     String cookieName();
 
-    String redirectUri();
+    @MinerConfig(dataId = "RedirectURI")
+    String redirectURI();
 
-    String localUrl();
+    @MinerConfig(dataId = "LocalURL")
+    String localURL();
 
-    @MinerConfig(defaultValue = "TRUE")
+    @MinerConfig(dataId = "ForceLogin", defaultValue = "TRUE")
     boolean forceLogin();
 }

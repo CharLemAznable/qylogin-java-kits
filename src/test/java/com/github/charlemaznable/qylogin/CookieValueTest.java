@@ -11,14 +11,13 @@ public class CookieValueTest {
 
     @Test
     public void testCookieValue() {
-        val jsonString = "{\"UserId\":\"a\",\"Name\":\"b\",\"Avatar\":\"c\",\"CsrfToken\":\"d\",\"Expired\":\"2019-03-05T23:33:59.029596352+08:00\",\"Redirect\":\"e\"}";
+        val jsonString = "{\"UserId\":\"a\",\"Name\":\"b\",\"Avatar\":\"c\",\"CsrfToken\":\"d\",\"Expired\":\"2019-03-05T23:33:59.029596352+08:00\"}";
         CookieValue cookieValue = unJson(jsonString, CookieValue.class);
 
-        assertEquals("a", cookieValue.getUserId());
+        assertEquals("a", cookieValue.getUserID());
         assertEquals("b", cookieValue.getName());
         assertEquals("c", cookieValue.getAvatar());
         assertEquals("d", cookieValue.getCsrfToken());
-        assertEquals("e", cookieValue.getRedirect());
         DateTime expired = cookieValue.getExpired();
         assertEquals(2019, expired.getYear());
         assertEquals(3, expired.getMonthOfYear());

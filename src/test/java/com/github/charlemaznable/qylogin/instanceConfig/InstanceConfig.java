@@ -17,12 +17,12 @@ public class InstanceConfig implements QyLoginConfig {
     }
 
     @Override
-    public String redirectUri() {
-        return "redirect-uri";
+    public String redirectURI() {
+        return "redirect-uri?v=verbose";
     }
 
     @Override
-    public String localUrl() {
+    public String localURL() {
         return "local-url";
     }
 

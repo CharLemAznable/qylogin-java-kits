@@ -1,6 +1,6 @@
 package com.github.charlemaznable.qylogin.spring;
 
-import com.github.charlemaznable.net.Url;
+import com.github.charlemaznable.core.net.Url;
 import com.github.charlemaznable.qylogin.CookieValue;
 import com.github.charlemaznable.qylogin.QyLogin;
 import com.github.charlemaznable.qylogin.config.QyLoginConfig;
@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static com.github.charlemaznable.codec.Json.unJson;
-import static com.github.charlemaznable.lang.Condition.nullThen;
-import static com.github.charlemaznable.lang.Str.isBlank;
-import static com.github.charlemaznable.lang.Str.isEmpty;
+import static com.github.charlemaznable.core.codec.Json.unJson;
+import static com.github.charlemaznable.core.lang.Condition.nullThen;
+import static com.github.charlemaznable.core.lang.Str.isBlank;
+import static com.github.charlemaznable.core.lang.Str.isEmpty;
 import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 

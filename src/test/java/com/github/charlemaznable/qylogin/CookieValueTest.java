@@ -4,7 +4,7 @@ import lombok.val;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
-import static com.github.charlemaznable.codec.Json.unJson;
+import static com.github.charlemaznable.core.codec.Json.unJson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CookieValueTest {

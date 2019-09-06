@@ -1,6 +1,6 @@
 package com.github.charlemaznable.qylogin;
 
-import com.github.charlemaznable.lang.Rand;
+import com.github.charlemaznable.core.lang.Rand;
 import lombok.SneakyThrows;
 import lombok.val;
 
@@ -8,11 +8,11 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import static com.github.charlemaznable.codec.Base64.Format.UrlSafe;
-import static com.github.charlemaznable.codec.Base64.base64;
-import static com.github.charlemaznable.codec.Base64.unBase64;
-import static com.github.charlemaznable.codec.Bytes.bytes;
-import static com.github.charlemaznable.codec.Bytes.string;
+import static com.github.charlemaznable.core.codec.Base64.Format.UrlSafe;
+import static com.github.charlemaznable.core.codec.Base64.base64;
+import static com.github.charlemaznable.core.codec.Base64.unBase64;
+import static com.github.charlemaznable.core.codec.Bytes.bytes;
+import static com.github.charlemaznable.core.codec.Bytes.string;
 import static java.lang.System.arraycopy;
 
 public class AES {

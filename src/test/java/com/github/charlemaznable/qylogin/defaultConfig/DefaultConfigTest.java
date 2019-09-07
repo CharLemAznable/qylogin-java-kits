@@ -69,7 +69,7 @@ public class DefaultConfigTest {
 
         Thread.sleep(5000);
         val response2 = mockMvc.perform(get("/default/index")
-                .cookie(mockCookie))
+                .cookie(verboseMockCookie, mockCookie))
                 .andExpect(status().isFound())
                 .andReturn().getResponse();
         assertEquals("redirect-uri?cookie=cookie-name&redirect=local-url%2Fdefault%2Findex", response2.getRedirectedUrl());

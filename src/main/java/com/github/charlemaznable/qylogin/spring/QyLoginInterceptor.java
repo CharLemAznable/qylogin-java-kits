@@ -1,5 +1,6 @@
 package com.github.charlemaznable.qylogin.spring;
 
+import com.github.charlemaznable.core.miner.MinerFactory;
 import com.github.charlemaznable.core.net.Url;
 import com.github.charlemaznable.qylogin.CookieValue;
 import com.github.charlemaznable.qylogin.QyLogin;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +39,13 @@ public class QyLoginInterceptor implements HandlerInterceptor {
     private QyLoginConfig qyLoginConfig;
     private Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
             handlerQyLoginCache = CacheBuilder.newBuilder().build();
+
+    @PostConstruct
+    public void postConstruct() {
+        if (null == qyLoginConfig) {
+            qyLoginConfig = MinerFactory.getMiner(QyLoginConfig.class);
+        }
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

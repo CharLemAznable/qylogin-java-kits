@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import(QyLoginConfiguration.class)
+@Import(QyLoginConfigurer.class)
 public @interface QyLoginImport {
 }

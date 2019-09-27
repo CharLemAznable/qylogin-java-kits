@@ -7,14 +7,14 @@
     <parent>
         <groupId>com.github.charlemaznable</groupId>
         <artifactId>complex-dependencies</artifactId>
-        <version>0.2.6</version>
+        <version>0.2.7</version>
     </parent>
 
     <artifactId>qylogin-java-kits</artifactId>
-    <version>0.5.4</version>
+    <version>0.5.5</version>
     <packaging>jar</packaging>
 
-    <name>qylogin-java-kits</name>
+    <name>QYLogin Java Kits</name>
     <url>https://github.com/CharLemAznable/qylogin-java-kits</url>
     <description>Java Kits for go-qylogin(https://github.com/bingoohuang/go-qylogin).</description>
 

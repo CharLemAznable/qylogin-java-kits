@@ -1,10 +1,12 @@
 package com.github.charlemaznable.qylogin;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.joda.time.DateTime;
 
-@Data
+@Getter
+@Setter
 public class CookieValue {
 
     @JSONField(name = "UserID")

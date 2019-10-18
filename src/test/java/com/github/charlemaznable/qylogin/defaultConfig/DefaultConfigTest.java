@@ -18,8 +18,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.Duration;
+
 import static com.github.charlemaznable.core.codec.Json.json;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -67,11 +70,14 @@ public class DefaultConfigTest {
                 .andReturn().getResponse();
         assertNull(response.getRedirectedUrl());
 
-        Thread.sleep(5000);
-        val response2 = mockMvc.perform(get("/default/index")
-                .cookie(verboseMockCookie, mockCookie))
-                .andExpect(status().isFound())
-                .andReturn().getResponse();
-        assertEquals("redirect-uri?cookie=cookie-name&redirect=local-url%2Fdefault%2Findex", response2.getRedirectedUrl());
+        assertDoesNotThrow(() ->
+                await().pollDelay(Duration.ofMillis(5000)).until(() -> {
+                    val response2 = mockMvc.perform(get("/default/index")
+                            .cookie(verboseMockCookie, mockCookie))
+                            .andExpect(status().isFound())
+                            .andReturn().getResponse();
+                    return "redirect-uri?cookie=cookie-name&redirect=local-url%2Fdefault%2Findex"
+                            .equals(response2.getRedirectedUrl());
+                }));
     }
 }

@@ -8,7 +8,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import static com.github.charlemaznable.core.codec.Base64.Format.UrlSafe;
+import static com.github.charlemaznable.core.codec.Base64.Format.URL_SAFE;
 import static com.github.charlemaznable.core.codec.Base64.base64;
 import static com.github.charlemaznable.core.codec.Base64.unBase64;
 import static com.github.charlemaznable.core.codec.Bytes.bytes;
@@ -23,8 +23,10 @@ public class AES {
 
     private static final int BLOCK_SIZE = 16;
 
+    private AES() {}
+
     public static String encryptBase64(String value, String keyString) {
-        return base64(encrypt(value, keyString), UrlSafe);
+        return base64(encrypt(value, keyString), URL_SAFE);
     }
 
     public static String decryptBase64(String value, String keyString) {

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -48,25 +49,18 @@ public class QyLoginInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(@Nonnull HttpServletRequest request,
+                             @Nonnull HttpServletResponse response,
+                             @Nonnull Object handler) throws Exception {
+
         if (!(handler instanceof HandlerMethod)) return true;
         if (null == qyLoginConfig) return false;
 
         val handlerMethod = (HandlerMethod) handler;
         val cacheKey = new HandlerQyLoginCacheKey(handlerMethod);
-        val qyLogin = handlerQyLoginCache.get(cacheKey, () -> findQyLogin(cacheKey));
-
-        // +--------------------------+-------------------+--------------------+
-        // |                          | forceLogin = true | forceLogin = false |
-        // +--------------------------+-------------------+--------------------+
-        // |    QyLogin not Present   |     intercept     |        pass        |
-        // +--------------------------+-------------------+--------------------+
-        // |  QyLogin required = true |     intercept     |      intercept     |
-        // +--------------------------+-------------------+--------------------+
-        // | QyLogin required = false |        pass       |        pass        |
-        // +--------------------------+-------------------+--------------------+
-        if (qyLogin.isPresent() && !qyLogin.get().required()) return true;
-        if (!qyLogin.isPresent() && !qyLoginConfig.forceLogin()) return true;
+        val qyLoginOptional = handlerQyLoginCache.get(
+                cacheKey, () -> findQyLogin(cacheKey));
+        if (dontIntercept(qyLoginOptional)) return true;
 
         val encryptKey = qyLoginConfig.encryptKey();
         val cookieName = qyLoginConfig.cookieName();
@@ -81,8 +75,8 @@ public class QyLoginInterceptor implements HandlerInterceptor {
             if (cookie.getName().equals(cookieName)) {
                 val decrypted = decryptBase64(cookie.getValue(), encryptKey);
                 val cookieValue = unJson(decrypted, CookieValue.class);
-                if (cookieValue.getExpired().isBeforeNow()) break;
-                if (isEmpty(cookieValue.getName())) break;
+                if (cookieValue.getExpired().isBeforeNow() ||
+                        isEmpty(cookieValue.getName())) break;
                 return true;
             }
         }
@@ -102,6 +96,21 @@ public class QyLoginInterceptor implements HandlerInterceptor {
         if (null != classQyLogin) return Optional.of(classQyLogin);
 
         return Optional.empty();
+    }
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    private boolean dontIntercept(Optional<QyLogin> qyLoginOptional) {
+        // +--------------------------+-------------------+--------------------+
+        // |                          | forceLogin = true | forceLogin = false |
+        // +--------------------------+-------------------+--------------------+
+        // |    QyLogin not Present   |     intercept     |        pass        |
+        // +--------------------------+-------------------+--------------------+
+        // |  QyLogin required = true |     intercept     |      intercept     |
+        // +--------------------------+-------------------+--------------------+
+        // | QyLogin required = false |        pass       |        pass        |
+        // +--------------------------+-------------------+--------------------+
+        return (qyLoginOptional.isPresent() && !qyLoginOptional.get().required()) ||
+                (!qyLoginOptional.isPresent() && !qyLoginConfig.forceLogin());
     }
 
     @Getter

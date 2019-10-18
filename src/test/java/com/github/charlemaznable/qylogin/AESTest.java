@@ -10,7 +10,6 @@ public class AESTest {
 
     @Test
     public void testAES() {
-        new AES();
         val plainText = "abc中国汉字1234567#$%^&*(";
 
         var keyString = "A916EFFC3121F935";

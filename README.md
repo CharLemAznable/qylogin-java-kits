@@ -33,3 +33,13 @@ Java Kits for [go-qylogin](https://github.com/bingoohuang/go-qylogin).
   <version>0.6.4</version>
 </dependency>
 ```
+
+##### Maven Dependency SNAPSHOT
+
+```xml
+<dependency>
+  <groupId>com.github.charlemaznable</groupId>
+  <artifactId>qylogin-java-kits</artifactId>
+  <version>0.7.0-SNAPSHOT</version>
+</dependency>
+```

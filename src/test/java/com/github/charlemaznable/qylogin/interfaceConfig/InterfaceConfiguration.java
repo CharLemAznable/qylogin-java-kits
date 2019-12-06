@@ -20,7 +20,7 @@ public class InterfaceConfiguration {
         MockDiamondServer.setUpMockServer();
         MockDiamondServer.setConfigInfo("QY_LOGIN", "test",
                 "EncryptKey=A916EFFC3121F935\n" +
-                        "CookieName=cookie-name\n" +
+                        "InterfaceCookieName=cookie-name\n" +
                         "RedirectURI=redirect-uri\n" +
                         "LocalURL=local-url");
     }

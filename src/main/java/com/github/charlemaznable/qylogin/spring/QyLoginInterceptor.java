@@ -42,7 +42,7 @@ public class QyLoginInterceptor implements HandlerInterceptor {
 
     @Autowired(required = false)
     public QyLoginInterceptor() {
-        this.qyLoginConfig = getMiner(QyLoginConfig.class);
+        this(getMiner(QyLoginConfig.class));
     }
 
     @Autowired(required = false)

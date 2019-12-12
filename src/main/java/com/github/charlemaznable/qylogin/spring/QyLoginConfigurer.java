@@ -15,8 +15,12 @@ import javax.annotation.Nonnull;
 @ComplexComponentScan
 public class QyLoginConfigurer implements WebMvcConfigurer {
 
+    private final QyLoginInterceptor qyLoginInterceptor;
+
     @Autowired
-    private QyLoginInterceptor qyLoginInterceptor;
+    public QyLoginConfigurer(QyLoginInterceptor qyLoginInterceptor) {
+        this.qyLoginInterceptor = qyLoginInterceptor;
+    }
 
     @Override
     public void addInterceptors(@Nonnull InterceptorRegistry registry) {

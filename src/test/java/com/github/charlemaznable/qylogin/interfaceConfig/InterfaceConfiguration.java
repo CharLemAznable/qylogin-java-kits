@@ -18,7 +18,7 @@ public class InterfaceConfiguration {
     @PostConstruct
     public static void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("QY_LOGIN", "test",
+        MockDiamondServer.setConfigInfo("QyLogin", "test",
                 "EncryptKey=A916EFFC3121F935\n" +
                         "InterfaceCookieName=cookie-name\n" +
                         "RedirectURI=redirect-uri\n" +

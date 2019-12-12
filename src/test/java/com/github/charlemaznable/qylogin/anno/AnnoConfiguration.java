@@ -18,7 +18,7 @@ public class AnnoConfiguration {
     @PostConstruct
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("QY_LOGIN", "anno",
+        MockDiamondServer.setConfigInfo("QyLogin", "anno",
                 "EncryptKey=A916EFFC3121F935\n" +
                         "CookieName=cookie-name\n" +
                         "RedirectURI=redirect-uri\n" +

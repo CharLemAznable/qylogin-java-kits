@@ -20,7 +20,7 @@ public class NoneConfiguration {
     public void postConstruct() {
         onClass(MinerFactory.class).field("minerCache").call("invalidateAll");
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("QY_LOGIN", "default", "");
+        MockDiamondServer.setConfigInfo("QyLogin", "default", "");
     }
 
     @PreDestroy

@@ -1,6 +1,5 @@
 package com.github.charlemaznable.qylogin.spring;
 
-import com.github.charlemaznable.core.miner.MinerFactory;
 import com.github.charlemaznable.core.net.Url;
 import com.github.charlemaznable.qylogin.CookieValue;
 import com.github.charlemaznable.qylogin.QyLogin;
@@ -18,7 +17,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +24,11 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 import static com.github.charlemaznable.core.codec.Json.unJson;
+import static com.github.charlemaznable.core.lang.Condition.checkNotNull;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
+import static com.github.charlemaznable.core.miner.MinerFactory.getMiner;
 import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
@@ -36,16 +36,19 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.findMerg
 @Component
 public class QyLoginInterceptor implements HandlerInterceptor {
 
-    @Autowired(required = false)
-    private QyLoginConfig qyLoginConfig;
+    private final QyLoginConfig qyLoginConfig;
     private Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
             handlerQyLoginCache = CacheBuilder.newBuilder().build();
 
-    @PostConstruct
-    public void postConstruct() {
-        if (null == qyLoginConfig) {
-            qyLoginConfig = MinerFactory.getMiner(QyLoginConfig.class);
-        }
+    @Autowired(required = false)
+    public QyLoginInterceptor() {
+        this.qyLoginConfig = getMiner(QyLoginConfig.class);
+    }
+
+    @Autowired(required = false)
+    public QyLoginInterceptor(QyLoginConfig qyLoginConfig) {
+        checkNotNull(qyLoginConfig);
+        this.qyLoginConfig = qyLoginConfig;
     }
 
     @Override

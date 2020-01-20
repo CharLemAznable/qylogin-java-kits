@@ -15,7 +15,7 @@ import static com.github.charlemaznable.core.codec.Bytes.bytes;
 import static com.github.charlemaznable.core.codec.Bytes.string;
 import static java.lang.System.arraycopy;
 
-public class AES {
+public final class AES {
 
     private static final String KEY_ALGORITHM = "AES";
 

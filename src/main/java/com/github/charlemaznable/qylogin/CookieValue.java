@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 
 @Getter
 @Setter
-public class CookieValue {
+public final class CookieValue {
 
     @JSONField(name = "UserID")
     private String userID;

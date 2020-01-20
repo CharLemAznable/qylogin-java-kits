@@ -34,7 +34,7 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.findMerg
 
 @Slf4j
 @Component
-public class QyLoginInterceptor implements HandlerInterceptor {
+public final class QyLoginInterceptor implements HandlerInterceptor {
 
     private final QyLoginConfig qyLoginConfig;
     private Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>

@@ -47,8 +47,7 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
 
     @Autowired(required = false)
     public QyLoginInterceptor(QyLoginConfig qyLoginConfig) {
-        checkNotNull(qyLoginConfig);
-        this.qyLoginConfig = qyLoginConfig;
+        this.qyLoginConfig = checkNotNull(qyLoginConfig);
     }
 
     @Override

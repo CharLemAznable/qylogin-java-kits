@@ -17,6 +17,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,6 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 import static com.github.charlemaznable.core.codec.Json.unJson;
-import static com.github.charlemaznable.core.lang.Condition.checkNotNull;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
@@ -42,12 +42,12 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
 
     @Autowired(required = false)
     public QyLoginInterceptor() {
-        this(getMiner(QyLoginConfig.class));
+        this(null);
     }
 
     @Autowired(required = false)
-    public QyLoginInterceptor(QyLoginConfig qyLoginConfig) {
-        this.qyLoginConfig = checkNotNull(qyLoginConfig);
+    public QyLoginInterceptor(@Nullable QyLoginConfig qyLoginConfig) {
+        this.qyLoginConfig = nullThen(qyLoginConfig, () -> getMiner(QyLoginConfig.class));
     }
 
     @Override

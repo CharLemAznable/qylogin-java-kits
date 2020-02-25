@@ -40,12 +40,7 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
     private Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
             handlerQyLoginCache = CacheBuilder.newBuilder().build();
 
-    @Autowired(required = false)
-    public QyLoginInterceptor() {
-        this(null);
-    }
-
-    @Autowired(required = false)
+    @Autowired
     public QyLoginInterceptor(@Nullable QyLoginConfig qyLoginConfig) {
         this.qyLoginConfig = nullThen(qyLoginConfig, () -> getMiner(QyLoginConfig.class));
     }

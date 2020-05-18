@@ -25,7 +25,7 @@
     </scm>
 
     <properties>
-        <joda-time.version>2.10.5</joda-time.version>
+        <joda-time.version>2.10.6</joda-time.version>
     </properties>
 
     <dependencies>

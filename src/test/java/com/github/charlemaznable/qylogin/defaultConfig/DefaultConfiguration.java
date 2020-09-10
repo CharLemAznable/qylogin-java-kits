@@ -20,11 +20,11 @@ public class DefaultConfiguration {
     public void postConstruct() {
         on(springMinerLoader()).field("minerCache").call("invalidateAll");
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("QyLogin", "default",
+        MockDiamondServer.setConfigInfo("QyLogin", "default", "" +
                 "EncryptKey=A916EFFC3121F935\n" +
-                        "CookieName=cookie-name\n" +
-                        "RedirectURI=redirect-uri\n" +
-                        "LocalURL=local-url");
+                "CookieName=cookie-name\n" +
+                "RedirectURI=redirect-uri\n" +
+                "LocalURL=local-url");
     }
 
     @PreDestroy

@@ -18,11 +18,11 @@ public class InterfaceConfiguration {
     @PostConstruct
     public static void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("QyLogin", "test",
+        MockDiamondServer.setConfigInfo("QyLogin", "test", "" +
                 "EncryptKey=A916EFFC3121F935\n" +
-                        "InterfaceCookieName=cookie-name\n" +
-                        "RedirectURI=redirect-uri\n" +
-                        "LocalURL=local-url");
+                "InterfaceCookieName=cookie-name\n" +
+                "RedirectURI=redirect-uri\n" +
+                "LocalURL=local-url");
     }
 
     @PreDestroy

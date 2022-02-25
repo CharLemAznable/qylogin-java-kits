@@ -1,6 +1,6 @@
 package com.github.charlemaznable.qylogin.config;
 
-import com.github.charlemaznable.core.miner.MinerConfig;
+import com.github.charlemaznable.miner.MinerConfig;
 
 @MinerConfig(group = "QyLogin", dataId = "default")
 public interface QyLoginConfig {

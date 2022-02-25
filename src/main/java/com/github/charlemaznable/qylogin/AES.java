@@ -1,6 +1,7 @@
 package com.github.charlemaznable.qylogin;
 
 import com.github.charlemaznable.core.lang.Rand;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
 
@@ -14,7 +15,9 @@ import static com.github.charlemaznable.core.codec.Base64.unBase64;
 import static com.github.charlemaznable.core.codec.Bytes.bytes;
 import static com.github.charlemaznable.core.codec.Bytes.string;
 import static java.lang.System.arraycopy;
+import static lombok.AccessLevel.PRIVATE;
 
+@NoArgsConstructor(access = PRIVATE)
 public final class AES {
 
     private static final String KEY_ALGORITHM = "AES";
@@ -22,8 +25,6 @@ public final class AES {
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
 
     private static final int BLOCK_SIZE = 16;
-
-    private AES() {}
 
     public static String encryptBase64(String value, String keyString) {
         return base64(encrypt(value, keyString), URL_SAFE);

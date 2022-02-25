@@ -28,7 +28,7 @@ import static com.github.charlemaznable.core.codec.Json.unJson;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
-import static com.github.charlemaznable.core.miner.MinerFactory.getMiner;
+import static com.github.charlemaznable.miner.MinerFactory.getMiner;
 import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 

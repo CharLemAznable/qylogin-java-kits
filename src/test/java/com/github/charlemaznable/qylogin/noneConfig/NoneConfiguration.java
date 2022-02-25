@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import static com.github.charlemaznable.core.miner.MinerFactory.springMinerLoader;
+import static com.github.charlemaznable.miner.MinerFactory.springMinerLoader;
 import static org.joor.Reflect.on;
 
 @EnableWebMvc

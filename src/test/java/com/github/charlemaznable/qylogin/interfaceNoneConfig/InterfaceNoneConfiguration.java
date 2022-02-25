@@ -1,6 +1,6 @@
 package com.github.charlemaznable.qylogin.interfaceNoneConfig;
 
-import com.github.charlemaznable.core.miner.MinerScan;
+import com.github.charlemaznable.miner.MinerScan;
 import com.github.charlemaznable.qylogin.spring.QyLoginImport;
 import org.n3r.diamond.client.impl.MockDiamondServer;
 import org.springframework.context.annotation.ComponentScan;

@@ -24,11 +24,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
 import static com.github.charlemaznable.core.codec.Json.unJson;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
-import static com.github.charlemaznable.miner.MinerFactory.getMiner;
 import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
 
@@ -42,7 +42,7 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
 
     @Autowired
     public QyLoginInterceptor(@Nullable QyLoginConfig qyLoginConfig) {
-        this.qyLoginConfig = nullThen(qyLoginConfig, () -> getMiner(QyLoginConfig.class));
+        this.qyLoginConfig = nullThen(qyLoginConfig, () -> getConfig(QyLoginConfig.class));
     }
 
     @Override

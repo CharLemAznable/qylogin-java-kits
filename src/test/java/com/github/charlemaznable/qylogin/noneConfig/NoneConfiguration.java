@@ -8,7 +8,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import static com.github.charlemaznable.miner.MinerFactory.springMinerLoader;
+import static com.github.charlemaznable.configservice.diamond.DiamondFactory.diamondLoader;
+import static com.github.charlemaznable.core.spring.SpringFactory.springFactory;
 import static org.joor.Reflect.on;
 
 @EnableWebMvc
@@ -18,7 +19,7 @@ public class NoneConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        on(springMinerLoader()).field("minerCache").call("invalidateAll");
+        on(diamondLoader(springFactory())).field("configCache").call("invalidateAll");
         MockDiamondServer.setUpMockServer();
         MockDiamondServer.setConfigInfo("QyLogin", "default", "");
     }

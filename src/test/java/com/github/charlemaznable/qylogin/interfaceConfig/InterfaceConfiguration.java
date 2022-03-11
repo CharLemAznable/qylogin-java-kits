@@ -1,6 +1,6 @@
 package com.github.charlemaznable.qylogin.interfaceConfig;
 
-import com.github.charlemaznable.miner.MinerScan;
+import com.github.charlemaznable.configservice.diamond.DiamondScan;
 import com.github.charlemaznable.qylogin.spring.QyLoginImport;
 import org.n3r.diamond.client.impl.MockDiamondServer;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +12,7 @@ import javax.annotation.PreDestroy;
 @EnableWebMvc
 @ComponentScan
 @QyLoginImport
-@MinerScan
+@DiamondScan
 public class InterfaceConfiguration {
 
     @PostConstruct

@@ -1,22 +1,29 @@
 package com.github.charlemaznable.qylogin.config;
 
-import com.github.charlemaznable.miner.MinerConfig;
+import com.github.charlemaznable.configservice.apollo.ApolloConfig;
+import com.github.charlemaznable.configservice.diamond.DiamondConfig;
 
-@MinerConfig(group = "QyLogin", dataId = "default")
+@ApolloConfig(namespace = "QyLogin", propertyName = "${qylogin-config:-default}")
+@DiamondConfig(group = "QyLogin", dataId = "${qylogin-config:-default}")
 public interface QyLoginConfig {
 
-    @MinerConfig(dataId = "EncryptKey")
+    @ApolloConfig(propertyName = "EncryptKey")
+    @DiamondConfig(dataId = "EncryptKey")
     String encryptKey();
 
-    @MinerConfig(dataId = "CookieName")
+    @ApolloConfig(propertyName = "CookieName")
+    @DiamondConfig(dataId = "CookieName")
     String cookieName();
 
-    @MinerConfig(dataId = "RedirectURI")
+    @ApolloConfig(propertyName = "RedirectURI")
+    @DiamondConfig(dataId = "RedirectURI")
     String redirectURI();
 
-    @MinerConfig(dataId = "LocalURL")
+    @ApolloConfig(propertyName = "LocalURL")
+    @DiamondConfig(dataId = "LocalURL")
     String localURL();
 
-    @MinerConfig(dataId = "ForceLogin", defaultValue = "TRUE")
+    @ApolloConfig(propertyName = "ForceLogin", defaultValue = "TRUE")
+    @DiamondConfig(dataId = "ForceLogin", defaultValue = "TRUE")
     boolean forceLogin();
 }

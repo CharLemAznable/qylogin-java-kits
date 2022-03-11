@@ -1,8 +1,8 @@
 package com.github.charlemaznable.qylogin.forceLogin;
 
-import com.github.charlemaznable.miner.MinerConfig;
+import com.github.charlemaznable.configservice.diamond.DiamondConfig;
 import com.github.charlemaznable.qylogin.config.QyLoginConfig;
 
-@MinerConfig(group = "QyLogin", dataId = "forceLogin")
+@DiamondConfig(group = "QyLogin", dataId = "forceLogin")
 public interface ForceLoginConfig extends QyLoginConfig {
 }

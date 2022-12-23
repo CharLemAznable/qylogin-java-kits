@@ -6,11 +6,13 @@ import com.github.charlemaznable.qylogin.QyLogin;
 import com.github.charlemaznable.qylogin.config.QyLoginConfig;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -18,9 +20,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
@@ -37,7 +36,7 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.getMerge
 public final class QyLoginInterceptor implements HandlerInterceptor {
 
     private final QyLoginConfig qyLoginConfig;
-    private Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
+    private final Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
             handlerQyLoginCache = CacheBuilder.newBuilder().build();
 
     @Autowired
@@ -49,11 +48,9 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(@Nonnull HttpServletRequest request,
                              @Nonnull HttpServletResponse response,
                              @Nonnull Object handler) throws Exception {
-
-        if (!(handler instanceof HandlerMethod)) return true;
         if (null == qyLoginConfig) return false;
+        if (!(handler instanceof HandlerMethod handlerMethod)) return true;
 
-        val handlerMethod = (HandlerMethod) handler;
         val cacheKey = new HandlerQyLoginCacheKey(handlerMethod);
         val qyLoginOptional = handlerQyLoginCache.get(
                 cacheKey, () -> findQyLogin(cacheKey));
@@ -78,10 +75,10 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
             }
         }
 
-        var location = redirectURI + (redirectURI.contains("?") ? "&" : "?");
-        location += "cookie=" + cookieName + "&";
-        location += "redirect=" + Url.encode(localURL + request.getRequestURI());
-        response.sendRedirect(location);
+        response.sendRedirect(redirectURI
+                + (redirectURI.contains("?") ? "&" : "?")
+                + "cookie=" + cookieName + "&"
+                + "redirect=" + Url.encode(localURL + request.getRequestURI()));
         return false;
     }
 
@@ -107,15 +104,15 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
         // | QyLogin required = false |        pass       |        pass        |
         // +--------------------------+-------------------+--------------------+
         return (qyLoginOptional.isPresent() && !qyLoginOptional.get().required()) ||
-                (!qyLoginOptional.isPresent() && !qyLoginConfig.forceLogin());
+                (qyLoginOptional.isEmpty() && !qyLoginConfig.forceLogin());
     }
 
     @Getter
     @EqualsAndHashCode
     static class HandlerQyLoginCacheKey {
 
-        private Method method;
-        private Class<?> declaringClass;
+        private final Method method;
+        private final Class<?> declaringClass;
 
         HandlerQyLoginCacheKey(HandlerMethod handlerMethod) {
             this.method = handlerMethod.getMethod();

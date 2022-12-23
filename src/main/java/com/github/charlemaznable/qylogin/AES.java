@@ -79,10 +79,6 @@ public final class AES {
     }
 
     private static String paddingkey(String originKey) {
-        val sb = new StringBuilder(originKey);
-        for (int i = originKey.length(); i < BLOCK_SIZE; i++) {
-            sb.append("0");
-        }
-        return sb.toString();
+        return originKey + "0".repeat(Math.max(0, BLOCK_SIZE - originKey.length()));
     }
 }

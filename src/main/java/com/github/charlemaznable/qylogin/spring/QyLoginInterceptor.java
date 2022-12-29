@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -37,7 +36,7 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.getMerge
 public final class QyLoginInterceptor implements HandlerInterceptor {
 
     private final QyLoginConfig qyLoginConfig;
-    private Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
+    private final Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
             handlerQyLoginCache = CacheBuilder.newBuilder().build();
 
     @Autowired
@@ -78,10 +77,10 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
             }
         }
 
-        var location = redirectURI + (redirectURI.contains("?") ? "&" : "?");
-        location += "cookie=" + cookieName + "&";
-        location += "redirect=" + Url.encode(localURL + request.getRequestURI());
-        response.sendRedirect(location);
+        response.sendRedirect(redirectURI
+                + (redirectURI.contains("?") ? "&" : "?")
+                + "cookie=" + cookieName + "&"
+                + "redirect=" + Url.encode(localURL + request.getRequestURI()));
         return false;
     }
 
@@ -114,8 +113,8 @@ public final class QyLoginInterceptor implements HandlerInterceptor {
     @EqualsAndHashCode
     static class HandlerQyLoginCacheKey {
 
-        private Method method;
-        private Class<?> declaringClass;
+        private final Method method;
+        private final Class<?> declaringClass;
 
         HandlerQyLoginCacheKey(HandlerMethod handlerMethod) {
             this.method = handlerMethod.getMethod();

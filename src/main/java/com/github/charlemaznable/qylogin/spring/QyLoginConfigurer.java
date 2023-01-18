@@ -24,7 +24,11 @@ public class QyLoginConfigurer implements WebMvcConfigurer {
 
     @Bean("com.github.charlemaznable.qylogin.spring.QyLoginInterceptor")
     public QyLoginInterceptor qyLoginInterceptor() {
-        return new QyLoginInterceptor(getBean(QyLoginConfig.class, defaultQyLoginConfigSupplier()));
+        return new QyLoginInterceptor(qyLoginConfig());
+    }
+
+    private QyLoginConfig qyLoginConfig() {
+        return getBean(QyLoginConfig.class, defaultQyLoginConfigSupplier());
     }
 
     private Supplier<QyLoginConfig> defaultQyLoginConfigSupplier() {

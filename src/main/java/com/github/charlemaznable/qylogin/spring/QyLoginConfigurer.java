@@ -11,9 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Nonnull;
 
-import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
-import static com.github.charlemaznable.core.lang.Condition.nullThen;
-
 @Configuration
 @ElvesImport
 public class QyLoginConfigurer implements WebMvcConfigurer {
@@ -22,7 +19,7 @@ public class QyLoginConfigurer implements WebMvcConfigurer {
 
     @Autowired
     public QyLoginConfigurer(@Nullable QyLoginConfig qyLoginConfig) {
-        this.qyLoginConfig = nullThen(qyLoginConfig, () -> getConfig(QyLoginConfig.class));
+        this.qyLoginConfig = qyLoginConfig;
     }
 
     @Override

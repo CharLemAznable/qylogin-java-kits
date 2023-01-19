@@ -9,7 +9,6 @@ import com.google.common.cache.CacheBuilder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +17,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
 import static com.github.charlemaznable.core.codec.Json.unJson;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
@@ -29,12 +30,15 @@ import static com.github.charlemaznable.qylogin.AES.decryptBase64;
 import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
 
 @Slf4j
-@AllArgsConstructor
 public final class QyLoginInterceptor implements HandlerInterceptor {
 
     private final QyLoginConfig qyLoginConfig;
     private final Cache<HandlerQyLoginCacheKey, Optional<QyLogin>>
             handlerQyLoginCache = CacheBuilder.newBuilder().build();
+
+    public QyLoginInterceptor(@Nullable QyLoginConfig qyLoginConfig) {
+        this.qyLoginConfig = nullThen(qyLoginConfig, () -> getConfig(QyLoginConfig.class));
+    }
 
     @Override
     public boolean preHandle(@Nonnull HttpServletRequest request,

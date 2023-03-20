@@ -29,7 +29,7 @@ Java Kits for [go-qylogin](https://github.com/bingoohuang/go-qylogin).
 <dependency>
   <groupId>com.github.charlemaznable</groupId>
   <artifactId>qylogin-java-kits</artifactId>
-  <version>2022.0.6</version>
+  <version>2022.0.7</version>
 </dependency>
 ```
 
@@ -39,6 +39,6 @@ Java Kits for [go-qylogin](https://github.com/bingoohuang/go-qylogin).
 <dependency>
   <groupId>com.github.charlemaznable</groupId>
   <artifactId>qylogin-java-kits</artifactId>
-  <version>2022.0.7-SNAPSHOT</version>
+  <version>2022.0.8-SNAPSHOT</version>
 </dependency>
 ```
